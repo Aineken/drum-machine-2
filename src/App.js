@@ -5,28 +5,28 @@ import {datas} from "./sounds"
 function App() {
 
   const[volume, setVolume] = useState(1)
+  const[speed, setSpeed] = useState(0.5)
   const[recording , setRecording] = useState("")
 
   const playRecording=()=>{
 
     let index = 0;
     let recordArray = recording.split(" ")
-    console.log(recordArray);
-    console.log(recording);
-   const interval =  setInterval(() => {
-  var triggerMusic = document.getElementById(recordArray[index])
+  
+    const interval =  setInterval(() => {
+    var triggerMusic = document.getElementById(recordArray[index])
 
       triggerMusic.volume = volume;
       triggerMusic.currentTime = 0;
       triggerMusic.play();
       index++;
 
- }, 300);
+ }, 600*speed);
 
  setTimeout(()=>{
  clearInterval(interval)
 
- }, 300*recordArray.length-1)
+ }, 600*speed*recordArray.length-1)
 
 
 
@@ -43,7 +43,7 @@ function App() {
     })}
 
 <h2>Volume</h2>
-<input type="range" className='w-' 
+<input type="range" className='w-50' 
 step="0.01"
 min="0"
 max="1"
@@ -59,8 +59,15 @@ value={volume}
 </button>
 <button onClick={()=>setRecording("") } className="btn btn-danger m-3">
   CLEAR
-  </button>
-
+</button>
+<h2>Speed</h2>
+<input type="range" className='w-50' 
+step="0.01"
+min="0.1"
+max="1.2"
+onChange={(e)=>{setSpeed(e.target.value)}}
+value={speed}
+/>
 </>
 
 )}
